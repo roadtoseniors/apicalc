@@ -2,10 +2,11 @@ package service
 
 import (
 	"fmt"
-	"pkg/timeout"
 	"slices"
 	"sync"
 	"time"
+
+	"github.com/roadtoseniors/apicalc/pkg/timeout"
 
 	"github.com/roadtoseniors/apicalc/internal/orchestrator/config"
 	"github.com/roadtoseniors/apicalc/internal/task"
@@ -21,7 +22,7 @@ type CalcService struct {
 	timeoutsTable map[int64]*timeout.Timeout
 }
 
-func NewCalcService(cfg config.TimeConfig) *CalcService {
+func NewCalcService(cfg config.Config) *CalcService {
 	cs := CalcService{
 		exprTable:     make(map[string]*Expression),
 		taskTable:     make(map[int64]ExprElement),

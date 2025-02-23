@@ -13,7 +13,7 @@ type Config struct {
 	Port          int
 }
 
-func NewConfig() (*Config, error) {
+func NewConfigAg() (*Config, error) {
 	gorutineCountStr := os.Getenv("GORUTINE_COUNT")
 	if len(gorutineCountStr) == 0 {
 		return nil, fmt.Errorf("environment variable GORUTINE_COUNT not specified")

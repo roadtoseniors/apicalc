@@ -7,14 +7,14 @@ import (
 )
 
 const errMessageFmt = "The %s environment variable is not set or has an incorrect value."
-type TimeConfig struct {
+type Config struct {
 	Add time.Duration
 	Sub time.Duration
 	Mul time.Duration
 	Div time.Duration
 }
 
-func NewConfigOrch() (*TimeConfig, error){
+func NewConfigOrch() (*Config, error){
 
 	at, err := time.ParseDuration(os.Getenv("TIME_ADDITION_MS") + "ms")
 	if err != nil || at < 0{
@@ -36,7 +36,7 @@ func NewConfigOrch() (*TimeConfig, error){
 		return nil, fmt.Errorf(errMessageFmt, "TIME_DIVISIONS_MS")
 	}
 
-	orchcfg := TimeConfig{
+	orchcfg := Config{
 		Add: at,
 		Sub: st,
 		Mul: mt,

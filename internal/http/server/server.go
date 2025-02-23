@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/roadtoseniors/apicalc/internal/agent/config"
+	"github.com/roadtoseniors/apicalc/internal/orchestrator/config"
 	"github.com/roadtoseniors/apicalc/internal/http/handler"
 	"github.com/roadtoseniors/apicalc/internal/service"
 )
@@ -56,6 +56,7 @@ func newMuxHandler(
 
 	return muxHandler, nil
 }
+
 // мидлвары для логирования запросов
 func loggingMiddleware(logger *log.Logger) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {

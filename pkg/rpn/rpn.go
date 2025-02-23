@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"pkg/stack"
+
+	"github.com/roadtoseniors/apicalc/pkg/stack"
 )
 
 const (
@@ -15,8 +16,9 @@ const (
 	leftBracketToken
 	rightBracketToken
 )
-//преобразуем в обратную польскую запись
-func NewRNP(input string) ([]string, error) {
+
+// преобразуем в обратную польскую запись
+func NewRPN(input string) ([]string, error) {
 	input = strings.ReplaceAll(input, "+", " + ")
 	input = strings.ReplaceAll(input, "-", " - ")
 	input = strings.ReplaceAll(input, "*", " * ")
@@ -79,22 +81,23 @@ func NewRNP(input string) ([]string, error) {
 		predToken = curToken
 	}
 
-	for !stack.Empty(){
+	for !stack.Empty() {
 		token := stack.Pop()
-		if token == "("{
+		if token == "(" {
 			return nil, fmt.Errorf("error: unpaired brackets")
 		}
-		rpnarr=append(rpnarr, token)
+		rpnarr = append(rpnarr, token)
 	}
 
-	if predToken != numberToken && predToken != rightBracketToken{
+	if predToken != numberToken && predToken != rightBracketToken {
 		return nil, fmt.Errorf("incorrect sequence near last token")
 	}
 	return rpnarr, nil
 }
-//приоритет оператора
-func operatorPriority(op string) int{
-	switch op{
+
+// приоритет оператора
+func operatorPriority(op string) int {
+	switch op {
 	case "*", "/":
 		return 1
 	case "+", "-":
@@ -103,18 +106,21 @@ func operatorPriority(op string) int{
 		return -1
 	}
 }
+
 // является ли оператором
-func isOperator(op string) bool{
+func isOperator(op string) bool {
 	return op == "+" || op == "-" || op == "*" || op == "/"
 }
+
 // проверка на унарность
-func isUnaryOperator(op string, predToken int) bool{
-	return (op == "-" || op == "+") && 
-	(predToken == emptyToken || predToken == leftBracketToken || predToken == operatorToken)
+func isUnaryOperator(op string, predToken int) bool {
+	return (op == "-" || op == "+") &&
+		(predToken == emptyToken || predToken == leftBracketToken || predToken == operatorToken)
 }
-//проверяем корректность последовательности токенов
-func checkTokens(prev, cur int) bool{
-	switch cur{
+
+// проверяем корректность последовательности токенов
+func checkTokens(prev, cur int) bool {
+	switch cur {
 	case numberToken:
 		return prev == emptyToken || prev == operatorToken || prev == leftBracketToken
 	case leftBracketToken:

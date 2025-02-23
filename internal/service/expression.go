@@ -4,6 +4,7 @@ import (
 	"container/list"
 	"strconv"
 	"strings"
+
 	"github.com/roadtoseniors/apicalc/pkg/rpn"
 )
 

@@ -1,11 +1,15 @@
 package client
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
+
+	"github.com/roadtoseniors/apicalc/internal/result"
+	"github.com/roadtoseniors/apicalc/internal/task"
 )
 
 type Client struct {
@@ -27,7 +31,7 @@ func (client *Client) GetTask() *task.Task {
 	defer cancel()
 
 	compreq, err := client.Do(req.WithContext(ctx))
-	if err != nil {.
+	if err != nil {
 		time.Sleep(500 * time.Millisecond)
 		return nil
 	}

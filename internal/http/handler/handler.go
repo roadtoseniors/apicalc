@@ -9,6 +9,7 @@ import (
 
 	"github.com/roadtoseniors/apicalc/internal/result"
 	"github.com/roadtoseniors/apicalc/internal/service"
+	"github.com/roadtoseniors/apicalc/internal/task"
 )
 
 type Decorator func(http.Handler) http.Handler
@@ -34,7 +35,7 @@ func NewHandler(
 	serveMux.HandleFunc("GET /internal/task", calcState.sendTask)
 	serveMux.HandleFunc("POST /internal/task", calcState.receiveResult)
 
-	return serverMux, nil
+	return serveMux, nil
 }
 
 // мидлвар к обработчику
